@@ -1,0 +1,24 @@
+create database:lmsdb
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Automatically incrementing id for each user
+    username VARCHAR(255) NOT NULL,     -- Username with a maximum length of 255 characters (cannot be null)
+    email VARCHAR(255) NOT NULL,        -- Email address with a max length of 255 characters (cannot be null)
+    password VARCHAR(255) NOT NULL,     -- Password field (plain text password)
+    bcode VARCHAR(50),                 -- A field for the 'bcode' (code), up to 50 characters
+    timing ENUM('9-11', '11-1', '1-3', '3-7', '7-9') NOT NULL,  -- Predefined timing options
+    address TEXT,                       -- Address field with unlimited length for the user's address
+    phone VARCHAR(20),                  -- Phone number, limited to 20 characters
+    image_url VARCHAR(255),             -- Field for storing image URL or file path (profile picture)
+    
+    -- Course field with limited options: CPISM, DISM, and HDSE
+    course ENUM('CPISM', 'DISM', 'HDSE') NOT NULL,
+    
+    -- Role field with four options: admin, teacher, student, manager
+    role ENUM('admin', 'teacher', 'student', 'manager') NOT NULL,
+
+    -- Unique email constraint
+    UNIQUE(email), 
+
+    -- bcode check constraint (valid options)
+    CHECK (bcode IN ('23012G', '2405D', '2405G', '2401E'))
+);
